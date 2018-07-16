@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Youtube changer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+        .btn-remote {
+            font-size: 16pt;
+            font-weight: bolder;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<script src="/js/sails.io.js"></script>
+
+
+
+<div id="id_main">
+<button class="btn-remote" id="id_remote">Remote control</button>
+<br>
+<br>
+<div id="player"></div>
+<br>
+<br>
+</div>
+
+<div id="wrapapp">
+    <div id="app"></div>
+</div>
+
+
+
+
+<script>
+
+var player, iframe,nowVid=-1;
+//for development
+//io.sails.url = 'http://localhost:1337';
+
+//On Youtube API loaded
+function onYouTubeIframeAPIReady() {
+
+    //On load player
+    function onPlayerReady(event) {
+        player = event.target;
+        iframe = document.getElementById('player');
+        event.target.playVideo();
+    }
+
+    //End current video and get next video
+    function onPlayerStateChange(event) {
+        //if(event.data==3) event.target.playVideo();
+        if(event.data==0)
+            io.socket.get(
+                '/player/nextvideo',
+                {id:nowVid},
+                function gotResponse(data) {});
+    }
+
+    function onError(event) {
+        //console.log(event);
+    }
+        
+
+    if(player==undefined) {
+        
+        var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth;
+            x-=20;
+
+        player = new YT.Player('player', {
+            width: (x>1024)?1024:x,
+            height: ((x*0.75)>768)?768:x*0.75,
+            videoId: 'XIMLoLxmTDw',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onError':onError
+            },
+            autoplay:0,
+            playerVars: { 
+                'autoplay': 1, 
+                'controls': 1,
+                'enablejsapi':1,
+                'iv_load_policy':3, 
+                'rel':0, 
+                'modestbranding':1,
+                showinfo:0
+            }
+        });
+    }
+
+}
+
+
+//play function
+function playFullscreen (){
+    if(player!==undefined)
+        player.playVideo();
+
+    var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+    if (requestFullScreen) {
+        requestFullScreen.bind(iframe)();
+    }
+}
+
+//on document load
+document.addEventListener("DOMContentLoaded", function() {
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    //Control center
+    var idRemote=document.querySelector("#id_remote");
+    idRemote.addEventListener('click', function () {
+        player.unloadModule();
+        delete player;
+        document.getElementById("id_main").remove();
+        io.socket.off('play');
+        io.socket.off('stop');
+
+        var tag = document.createElement('script');
+        tag.src = "/js/bundle.js";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    });
+
+
+    //play
+    io.socket.on('play', function (msg) {
+        if(player!==undefined && msg.vidid!==undefined) {
+            nowVid=msg.id;
+            player.loadVideoById(msg.vidid);
+        }
+    });
+
+    //stop
+    io.socket.on('stop', function (msg) {
+        if(msg.vidid!==undefined)
+            nowVid=msg.id;
+        if(player!==undefined)
+            player.stopVideo();
+    });
+
+});
+</script>
+
+
+</body>
+</html>

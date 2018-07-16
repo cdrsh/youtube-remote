@@ -1,0 +1,133 @@
+.mrl5 {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.mr5 {
+	margin-right: 5px;
+}
+
+.plist-v {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 80px;
+	overflow: hidden;
+	padding: 15px;
+}
+
+
+.list-v {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	/*justify-content: flex-start;*/
+	height: 120px;
+	/*border: 1px solid black;*/
+	overflow: hidden;
+	padding: 15px;
+}
+
+.col-img {
+	display: flex;
+	flex-direction: column;
+	min-width:100px;
+	max-width:100px;
+}
+
+.col-chk {
+	min-width:70px;
+	max-width:70px;
+	cursor: pointer;
+}
+
+.col-chk:hover {
+	text-shadow: 1px 1px 2px black, 0 0 1em #CCC;
+}
+
+.col-cnt {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: hidden;
+	/*
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	*/
+}
+
+.col-cnt>a {
+	min-height: 80px;
+	display: flex;
+	align-items: center;
+}
+
+.col-btn {
+	min-width:40px !important;
+}
+
+.col-btn>a {
+	margin: 5px;
+}
+
+.descr {
+	padding: 13px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.list-container {
+	padding-top: 55px;
+}
+
+.brdb {
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.acflx {
+	width: 100%;
+	text-align: center;
+}
+
+.pad-top55 {
+	padding: 15px;
+	padding-top: 55px;
+}
+
+.pad-top15 {
+	padding: 15px;
+}
+
+.brdl {
+	border-left: 1px solid #CCC;
+}
+
+.flgrow {
+	flex-grow: 1 !important;
+}
+
+.ar {
+	text-align:right;
+}
+
+.w15 {
+	min-width:15px;
+}
+
+.cols-v {
+	width: 100%;
+	flex-grow: 1;
+	flex-direction: column;
+	align-items: flex-start !important;
+}
+
+.rad5 {
+	border-radius: 5px !important;
+}
+
+.title-line {
+	white-space: nowrap !important;
+}

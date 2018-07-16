@@ -1,0 +1,24 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Playlist_Add')}}
+    .field.pad-top55
+        label.label {{$t('Playlist_name')}}
+        .control
+            input.input(
+                type="text",
+                :placeholder="$t('Enter_here')",
+                v-model="nam"
+            )
+
+    .field.is-grouped.is-grouped-right.pad-top15
+        .control
+            router-link.button.is-light(:to="{ name: 'Playlists' }") 
+                | {{$t('Cancel')}}
+        .control
+            button.button.is-info(@click="onAdd")
+                i.fa.fa-plus.mr5
+                | {{$t('Add')}}

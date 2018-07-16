@@ -1,0 +1,16 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Remove_all_playlists')}}?
+
+    .field.is-grouped.is-grouped-right.pad-top55
+        .control
+            router-link.button.is-light(:to="{ name: 'Playlists' }") 
+                | {{$t('Cancel')}}
+        .control
+            button.button.is-info(@click="onRemoveAllPlaylists")
+                i.fa.fa-times.mr5
+                | {{$t('Remove_All')}}

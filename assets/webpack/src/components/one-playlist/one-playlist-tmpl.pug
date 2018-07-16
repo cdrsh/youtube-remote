@@ -1,0 +1,104 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl(v-if="!bSearch")
+                | {{getPlaylistName($route.params.idpl)}}
+            .navbar-item.brdl.flgrow(v-if="bSearch")
+                .field.has-addons.flgrow
+                    .control.flgrow
+                        input.input(
+                            type="text", 
+                            :placeholder="$t('Video_title')",
+                            v-model="txt"
+                        )
+                    .control
+                        a.button.is-dark(@click="doSearch")
+                            | {{$t('Search')}}
+                    .control
+                        a.button.is-light(@click="toggleSearch")
+                            i.fa.fa-times
+
+
+            .navbar-burger.burger.brdl(
+                data-target="idPlaylists",
+                @click="onMenuToggle"
+            )
+                span
+                span
+                span
+          
+        .navbar-menu.navbar-end(
+            id="idPlaylists",
+            :class="{'is-active':menuToggled}"
+        )
+            a.navbar-item.brdl(@click="toggleSearch")
+                i.fa.fa-search.mrl5
+                | {{$t('Search')}}
+            .navbar-item.has-dropdown.is-hoverable
+                a.navbar-link.brdl
+                    i.fa.fa-bars.mrl5
+                    | {{$t('Actions')}}
+                .navbar-dropdown.is-boxed
+                    router-link.navbar-item(
+                        :to="{ name: 'OnePlaylistAdd', params:{idpl:$route.params.idpl} }"
+                    ) 
+                        i.fa.fa-plus.mrl5.w15
+                        | {{$t('Add')}}
+
+                    //
+                        router-link.navbar-item(
+                            :to="{ name: 'YoutubeSearch', params:{idpl:$route.params.idpl} }"
+                        ) 
+                            i.fa.fa-plus.mrl5.w15
+                            | {{$t('Add_from_Youtube')}}
+
+                    router-link.navbar-item(
+                        :to="{ name: 'OnePlaylistEditList', params:{idpl:$route.params.idpl} }"
+                    ) 
+                        i.fa.fa-pencil.mrl5.w15
+                        | {{$t('Edit')}}
+
+                    router-link.navbar-item(
+                        :to="{ name: 'OnePlaylistRemove', params:{id:1, idpl:$route.params.idpl} }"
+                    ) 
+                        i.fa.fa-times.mrl5.w15
+                        | {{$t('Remove')}}
+
+                    router-link.navbar-item(
+                        :to="{ name: 'OnePlaylistRemoveAll', params:{idpl:$route.params.idpl} }"
+                    ) 
+                        i.fa.fa-times-circle.mrl5.w15
+                        | {{$t('Remove_All')}}
+
+                    router-link.navbar-item(
+                        :to="{ name: 'OnePlaylistMove', params:{idpl:$route.params.idpl} }"
+                    ) 
+                        i.fa.fa-arrows-v.mrl5.w15
+                        | {{$t('Move')}}
+
+    .list-container
+        .list-v.brdb(v-for="obj in getVideos(true)", :key="obj.id")
+            .col-img
+                img(:src="obj.imgurl")
+            .col-cnt
+                .navbar-item.is-size-5.cols-v(
+                    :class="{'has-text-primary':(obj.id==getPlayerID)}"
+                )
+                    div
+                        i.fa.fa-asterisk.fa-spin(v-if="obj.id==getPlayerID") 
+                        span.title-line {{obj.title}}
+                    .is-size-7
+                        | {{$t('Link')}}: 
+                        a(:href="obj.vid")
+                            | {{obj.vid}}
+            .col-btn
+                a.button.is-info(
+                    @click="onStopVideo(obj.id)",
+                    v-if="obj.id==getPlayerID && getPlayerState")
+                    i.fa.fa-stop
+                a.button.is-info(
+                    @click="onPlayVideo(obj.id)",
+                    v-if="(obj.id==getPlayerID && !getPlayerState) || (obj.id!==getPlayerID)")
+                    i.fa.fa-play

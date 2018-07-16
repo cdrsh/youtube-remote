@@ -1,0 +1,21 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Playlist_Edit')}}
+
+    .list-container
+        .plist-v.brdb(v-for="obj in getPlaylists(false)", :key="obj.id")
+            .col-cnt
+                router-link.navbar-item.is-size-5(
+                    :to="{ name: 'OnePlaylist', params:{idpl:obj.id} }",
+                    :class="{'is-active':($route.fullPath=='/playlists/oneplaylist')}"
+                )
+                    span.title-line {{obj.nam}}
+            
+            .col-btn
+                router-link.button.is-info(:to="{ name: 'PlaylistsEdit', params:{id:obj.id} }")
+                    i.fa.fa-pencil
+

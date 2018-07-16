@@ -1,0 +1,27 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'OnePlaylist', params:{idpl:$route.params.idpl} }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Move_videos')}}
+
+    .list-container
+        .list-v.brdb(v-for="obj in getVideos(false)", :key="obj.id")
+            .col-img
+                img(:src="obj.imgurl")
+
+            .col-cnt
+                .navbar-item.is-size-5.cols-v
+                    span.title-line {{obj.title}}
+                    .is-size-7
+                        | {{$t('Link')}}:
+                        a(:href="obj.vid")
+                            | {{obj.vid}}
+
+            .col-btn
+                a.button.is-info(@click="moveUp(obj)")
+                    i.fa.fa-chevron-up
+                a.button.is-info(@click="moveDw(obj)")
+                    i.fa.fa-chevron-down
+

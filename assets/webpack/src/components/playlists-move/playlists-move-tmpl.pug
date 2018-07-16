@@ -1,0 +1,20 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Move_playlists')}}
+
+    .list-container
+        .plist-v.brdb(v-for="obj in getPlaylists(false)", :key="obj.id")
+            .col-cnt
+                .navbar-item.is-size-5
+                    span.title-line {{obj.nam}}
+            
+            .col-btn
+                a.button.is-info(@click="moveUp(obj)")
+                    i.fa.fa-chevron-up
+                a.button.is-info(@click="moveDw(obj)")
+                    i.fa.fa-chevron-down
+

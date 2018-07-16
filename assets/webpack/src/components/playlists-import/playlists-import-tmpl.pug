@@ -1,0 +1,20 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Import_playlists')}}
+
+    .field.pad-top55
+        .control
+            button.button.is-info
+                | {{$t('Import_from_Excel')}}
+    .field.pad-top15
+        .control
+            button.button.is-info
+                | {{$t('Import_from_CSV')}}
+    .field.pad-top15
+        .control
+            button.button.is-info
+                | {{$t('Import_from_JSON')}}

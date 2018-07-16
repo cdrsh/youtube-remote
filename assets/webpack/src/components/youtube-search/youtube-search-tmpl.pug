@@ -1,0 +1,34 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'OnePlaylist', params:{idpl:$route.params.idpl} }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl.flgrow
+                .field.has-addons.flgrow
+                    .control.flgrow
+                        input.input.rad5(
+                            type="text", 
+                            :placeholder="$t('Youtube_search_by_title')",
+                            v-model="title"
+                        )
+
+            a.navbar-item.brdl.navbar-end(@click="onYoutubeSearch")
+                i.fa.fa-search.mrl5
+                | {{$t('Youtube_search')}}
+
+    .list-container
+        .plist-v.brdb(v-for="obj in getYTVideos", :key="obj.id")
+            .col-img
+                img(:src="obj.imgurl")
+            .col-cnt
+                .navbar-item.is-size-5 
+                    | {{obj.title}}
+                .navbar-item.is-size-7
+                    | {{obj.href}}
+            .col-btn
+                a.button.is-link(@click="addToPlaylist(obj)")
+                    i.fa.fa-plus
+        
+    hr
+    a.button.is-primary(@click="onYoutubeSearch")
+        i.fa.fa-plus

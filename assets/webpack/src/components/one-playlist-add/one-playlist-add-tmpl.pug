@@ -1,0 +1,29 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'OnePlaylist', params:{idpl:$route.params.idpl} }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl.flgrow
+                | {{$t('Video_Add')}}
+            //
+                router-link.navbar-item.brdl.navbar-end(:to="{ name: 'YoutubeSearch', params:{idpl:$route.params.idpl} }")
+                    i.fa.fa-search.mrl5
+                    | Add from Youtube
+    .field.pad-top55
+        label.label {{$t('Video_URL')}}
+        .control
+            input.input(
+                type="text",
+                placeholder="https://www.youtube.com/watch?v=...",
+                v-model="url"
+            )
+        p.help {{$t('Example')}}: https://www.youtube.com/watch?v=CH1XGdu-hzQ
+
+    .field.is-grouped.is-grouped-right.pad-top15
+        .control
+            router-link.button.is-light(:to="{ name: 'OnePlaylist', params:{idpl:$route.params.idpl} }") 
+                | {{$t('Cancel')}}
+        .control
+            button.button.is-info(@click="onAddVideo")
+                i.fa.fa-plus.mr5
+                | {{$t('Add')}}

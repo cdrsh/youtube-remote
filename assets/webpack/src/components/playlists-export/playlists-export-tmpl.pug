@@ -1,0 +1,27 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl.flgrow
+                | {{$t('Export_playlists')}}
+            a.navbar-item.brdl.navbar-end
+                i.fa.fa-times.mrl5
+                | {{$t('Export_selected')}}
+
+    .list-container
+        .list-v.brdb(v-for="i in 100" :key="i")
+            .col-chk
+                span.icon.is-medium
+                    i.fa.fa-2x(:class="{'fa-check-square-o':i==2,'fa-square-o':i!=2}")
+
+            .col-img
+                img(
+                    src="https://i.ytimg.com/vi/33dnyo2-GnY/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLDBGejmLGlfBiDkTx04aDJ4rg9FLw"
+                )
+
+            .col-cnt
+                .navbar-item.is-size-5(:class="{'has-text-primary':(i==2)}")
+                    i.fa.fa-asterisk.fa-spin.mr5(v-if="i==2") 
+                    span {{$t('Export')}}
+

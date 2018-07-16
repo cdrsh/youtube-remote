@@ -1,0 +1,25 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(:to="{ name: 'OnePlaylist', params:{idpl:$route.params.idpl} }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Video_URL_Edit')}}
+
+    .list-container.pad-top55
+        .plist-v.brdb(v-for="obj in getVideos(false)", :key="obj.id")
+            .col-img
+                img(:src="obj.imgurl")
+                
+            .col-cnt
+                .navbar-item.is-size-5
+                    span.title-line {{obj.title}}
+            
+            .col-btn
+                router-link.button.is-info(
+                    :to="{ name: 'OnePlaylistEdit',\
+                    params:{idpl:$route.params.idpl,\
+                    id:obj.id} }"
+                )
+                    i.fa.fa-pencil
+

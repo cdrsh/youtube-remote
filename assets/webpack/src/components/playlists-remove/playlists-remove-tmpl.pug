@@ -1,0 +1,28 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl.flgrow
+                | {{$t('Remove_playlists')}}
+            a.navbar-item.brdl.navbar-end(@click="onRemoveSelected")
+                i.fa.fa-times.mrl5
+                | {{$t('Remove_selected')}}
+
+    
+    .list-container
+        .plist-v.brdb(v-for="obj in getPlaylists(false)", :key="obj.id")
+            a.col-chk(@click="onCheck(obj)")
+                span.icon.is-medium
+                    i.fa.fa-2x(:class="{'fa-check-square-o':obj.chk,'fa-square-o':!obj.chk}")
+
+            .col-cnt
+                router-link.navbar-item.is-size-5(
+                    :to="{ name: 'OnePlaylist', params:{idpl:obj.id} }",
+                    :class="{'is-active':($route.fullPath=='/playlists/oneplaylist')}"
+                )
+                    span.title-line {{obj.nam}}
+            
+            .col-btn
+                a.button.is-info(@click="onRemoveOne(obj.id)")
+                    i.fa.fa-times

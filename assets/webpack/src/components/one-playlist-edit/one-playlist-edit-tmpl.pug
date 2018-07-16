@@ -1,0 +1,29 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(
+                :to="{ name: 'OnePlaylistEditList', params:{idpl:$route.params.idpl} }"
+            ) 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Video_URL_Edit')}}
+    .field.pad-top55
+        label.label {{$t('Video_URL')}}
+        .control
+            input.input(
+                type="text",
+                placeholder="https://www.youtube.com/watch?v=...",
+                v-model="url"
+            )
+        p.help {{$t('Example')}}: https://www.youtube.com/watch?v=CH1XGdu-hzQ
+
+    .field.is-grouped.is-grouped-right.pad-top15
+        .control
+            router-link.button.is-light(
+                :to="{ name: 'OnePlaylistEditList', params:{idpl:$route.params.idpl} }"
+            )
+                | {{$t('Cancel')}}
+        .control
+            button.button.is-info(@click="onEditVideo")
+                i.fa.fa-plus.mr5
+                | {{$t('Save')}}

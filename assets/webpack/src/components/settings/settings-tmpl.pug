@@ -1,0 +1,23 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(:to="{ name: 'Playlists' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Settings')}}
+    
+    .pad-top55
+        aside.menu
+            p.menu-label
+                | {{$t('Languages')}}
+            ul.menu-list(v-for="obj in getLangs", :key="obj.id")
+                li
+                    a(  :class="{'is-active':obj.code==lng}",
+                        @click="()=>{changeLang(obj.code)}"
+                    )
+                        | {{obj.nam}}
+
+        .field.is-grouped.is-grouped-right.pad-top15
+            .control
+                button.button.is-info(@click="onSelectLanguage")
+                    | OK

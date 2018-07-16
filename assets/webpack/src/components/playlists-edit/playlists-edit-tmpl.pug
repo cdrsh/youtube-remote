@@ -1,0 +1,25 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand
+            router-link.navbar-item(:to="{ name: 'PlaylistsEditList' }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl
+                | {{$t('Playlist_Edit')}}
+    .field.pad-top55
+        label.label 
+            | {{$t('Playlist_name')}}
+        .control
+            input.input(
+                type="text",
+                :placeholder="$t('Enter_here')",
+                v-model="playlist.nam"
+            )
+
+    .field.is-grouped.is-grouped-right.pad-top15
+        .control
+            router-link.button.button.is-light(:to="{ name: 'PlaylistsEditList' }") 
+                | {{$t('Cancel')}}
+        .control
+            button.button.is-info(@click="onSave")
+                i.fa.fa-plus.mr5
+                | {{$t('Save')}}

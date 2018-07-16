@@ -1,0 +1,31 @@
+div
+    nav.navbar.is-info.is-fixed-top
+        .navbar-brand.flgrow
+            router-link.navbar-item(:to="{ name: 'OnePlaylist', params:{idpl:$route.params.idpl} }") 
+                i.fa.fa-chevron-left.mrl5
+            .navbar-item.brdl.flgrow
+                | {{$t('Remove_videos')}}
+            a.navbar-item.brdl.navbar-end(@click="onRemoveSelected")
+                i.fa.fa-times.mrl5
+                | {{$t('Remove_selected')}}
+
+    .list-container
+        .list-v.brdb(v-for="obj in getVideos(false)", :key="obj.id")
+            a.col-chk(@click="onCheck(obj)")
+                span.icon.is-medium
+                    i.fa.fa-2x(:class="{'fa-check-square-o':obj.chk,'fa-square-o':!obj.chk}")
+            .col-img
+                img(:src="obj.imgurl")
+            .col-cnt
+                .navbar-item.is-size-5.cols-v
+                    div
+                        span.title-line {{obj.title}}
+                    .is-size-7
+                        | {{$t('Link')}}: 
+                        a(:href="obj.vid")
+                            | {{obj.vid}}
+            .col-btn
+                a.button.is-link(@click="onRemoveOne(obj.id)")
+                    i.fa.fa-times
+
+
